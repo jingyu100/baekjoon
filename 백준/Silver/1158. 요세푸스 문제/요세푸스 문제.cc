@@ -8,27 +8,23 @@
 int q[5001];
 
 int main() {
-    int n, k, cnt = 0, anscnt = 0;
+    int n, k, cnt, num;
     scanf("%d%d", &n, &k);
-    for (int i = 1; i <= n; ++i) q[i] = i;
-    int num = k;
-    printf("<");
-    while (1) {
-        anscnt++;
-        if(anscnt == n) {
-            printf("%d>", q[num]);
-            break;
-        }
-        printf("%d, ",q[num]);
-        q[num] = 0;
+    num = k;
+    printf("<%d", num);
+    for (int i = 0; i < n - 1; ++i) {
+        q[num] = 1;
+        cnt = 0;
         while (1) {
-            if (cnt == k) break;
+            if (cnt == k) {
+                printf(", %d", num);
+                break;
+            }
             num++;
             if (num > n) num = 1;
-            if (q[num] > 0) cnt++;
+            if (q[num] == 0) cnt++;
         }
-        if (cnt == 0) break;
-        cnt = 0;
     }
+    printf(">");
     return 0;
 }
