@@ -5,26 +5,18 @@
 //#include <string.h>
 //using namespace std;
 
-int q[5001];
+int q[5001*5001];
 
 int main() {
-    int n, k, cnt, num;
+    int n, k;
     scanf("%d%d", &n, &k);
-    num = k;
-    printf("<%d", num);
-    for (int i = 0; i < n - 1; ++i) {
-        q[num] = 1;
-        cnt = 0;
-        while (1) {
-            if (cnt == k) {
-                printf(", %d", num);
-                break;
-            }
-            num++;
-            if (num > n) num = 1;
-            if (q[num] == 0) cnt++;
-        }
+    for (int i = 1; i <= n; ++i) q[i] = i;
+    int iidx = n, oidx = 0;
+    printf("<");
+    while (oidx + 1 != iidx) {
+        if (++oidx % k == 0) printf("%d, ", q[oidx]);
+        else q[++iidx] = q[oidx];
     }
-    printf(">");
+    printf("%d>", q[++oidx]);
     return 0;
 }
