@@ -1,9 +1,4 @@
-//#include <algorithm>
-//#include <memory.h>
-//#include <stack>
 #include <stdio.h>
-//#include <string.h>
-//using namespace std;
 
 int q[5001*5001];
 
