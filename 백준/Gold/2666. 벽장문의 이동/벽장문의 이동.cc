@@ -9,8 +9,14 @@ void func(int z, int x, int c, int idx) {
         if (c < min1) min1 = c;
         return;
     }
-    func(input[idx], x, c + abs(z-input[idx]), idx + 1);
-    func(z, input[idx], c + abs(x-input[idx]), idx + 1);
+    if (input[idx] <= z)
+        func(input[idx], x, c + abs(z - input[idx]), idx + 1);
+    else if (input[idx] >= x)
+        func(z, input[idx], c + abs(x - input[idx]), idx + 1);
+    else {
+        func(input[idx], x, c + abs(z - input[idx]), idx + 1);
+        func(z, input[idx], c + abs(x - input[idx]), idx + 1);
+    }
 }
 
 int main() {
