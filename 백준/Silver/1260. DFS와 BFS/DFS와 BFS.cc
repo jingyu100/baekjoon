@@ -1,36 +1,44 @@
+#define _CRT_SECURE_NO_WARNINGS
+#pragma warning(disable : 6031)
+
 #include <algorithm>
 #include <stdio.h>
 #include <stack>
 #include <memory.h>
 #include <queue>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-int n, m, v, a, b, list[1001][1001], chk1[1001];
+int n, m, v, a, b;
+vector<int> vec[1001];
 queue<int> q;
+int dfschk[1001], bfschk[1001];
 
 void dfs(int x) {
     printf("%d ", x);
-    for (int i = 1; i < n + 1; ++i) {
-        if (list[x][i] && !chk1[i]) {
-            chk1[i] = 1;
-            dfs(i);
+    dfschk[x] = 1;
+    for (int i = 0; i < vec[x].size(); ++i) {
+        int next = vec[x][i];
+        if (!dfschk[next]) {
+            dfs(next);
         }
     }
 }
 
 void bfs(int x) {
-    queue<int> q;
     q.push(x);
-    chk1[x] = 1;
+    bfschk[x] = 1;
     while (!q.empty()) {
-        int p = q.front();
+        int d = q.front();
+        printf("%d ", d);
         q.pop();
-        printf("%d ", p);
-        for (int i = 1; i < n + 1; ++i) {
-            if (list[p][i] && !chk1[i]) {
-                chk1[i] = 1;
-                q.push(i);
+        for (int i = 0; i < vec[d].size(); ++i) {
+            int next = vec[d][i];
+            if (!bfschk[next]) {
+                q.push(next);
+                bfschk[next] = 1;
             }
         }
     }
@@ -40,14 +48,14 @@ int main() {
     scanf("%d%d%d", &n, &m, &v);
     for (int i = 0; i < m; ++i) {
         scanf("%d%d", &a, &b);
-        list[a][b] = 1;
-        list[b][a] = 1;
+        vec[a].push_back(b);
+        vec[b].push_back(a);
     }
-    chk1[v] = 1;
+    for (int i = 1; i <= n; ++i) {
+        sort(vec[i].begin(), vec[i].end());
+    }
     dfs(v);
-    fill(chk1, chk1 + 1001, 0);
     printf("\n");
-    chk1[v] = 1;
     bfs(v);
     return 0;
 }
