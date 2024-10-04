@@ -1,0 +1,2 @@
+#include <stdio.h>
+int cnt,chk;char tmp;int main() {for (int i = 0; i < 8; ++i) {chk = i;for (int j = 0; j < 8; ++j) {scanf("%c", &tmp);if (chk % 2 == 0) {if (tmp == 'F') cnt++;}chk++;}scanf("%c", &tmp);}printf("%d", cnt);return 0;}
